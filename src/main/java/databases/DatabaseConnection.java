@@ -40,18 +40,22 @@ public class DatabaseConnection {
         }
     }
 
-    public void add(FavoriteFood favoriteFood) {
+    public boolean add(FavoriteFood favoriteFood) {
+        boolean result = false;
+
         try {
             String foodName = favoriteFood.getName();
             int foodPrice = favoriteFood.getPrice();
 
-            String format = "INSERT INTO %s (%s, %s) VALUES (%s, %d);";
+            String format = "INSERT INTO %s (%s, %s) VALUES (%s, %d)";
             String sql = String.format(format, TABLE_NAME, COLUMN_NAME, COLUMN_PRICE, foodName, foodPrice);
 
-            statement.execute(sql);
+            result = statement.execute(sql);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
     }
 
     public List<FavoriteFood> show() {
@@ -77,5 +81,23 @@ public class DatabaseConnection {
         }
 
         return favoriteFoods;
+    }
+
+    public boolean update(FavoriteFood favoriteFood) {
+        boolean result = false;
+
+        try {
+            int foodId = favoriteFood.getId();
+            String foodName = favoriteFood.getName();
+            int foodPrice = favoriteFood.getPrice();
+
+            String format = "UPDATE %s SET %s = %s, %s = %s WHERE %s = %d";
+            String sql = String.format(format, TABLE_NAME, COLUMN_NAME, foodName, COLUMN_PRICE, foodPrice, COLUMN_ID, foodId);
+            result = statement.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }
