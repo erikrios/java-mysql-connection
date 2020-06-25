@@ -124,4 +124,22 @@ public class DatabaseConnection {
 
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "DatabaseConnection{" +
+                "connection=" + connection +
+                ", statement=" + statement +
+                ", resultSet=" + resultSet +
+                ", DATABASE_NAME='" + DATABASE_NAME + '\'' +
+                ", TABLE_NAME='" + TABLE_NAME + '\'' +
+                ", COLUMN_ID='" + COLUMN_ID + '\'' +
+                ", COLUMN_NAME='" + COLUMN_NAME + '\'' +
+                ", COLUMN_PRICE='" + COLUMN_PRICE + '\'' +
+                ", USERNAME='" + USERNAME + '\'' +
+                ", PASSWORD='" + PASSWORD + '\'' +
+                ", JDBC_DRIVER='" + JDBC_DRIVER + '\'' +
+                ", DATABASE_URL='" + DATABASE_URL + '\'' +
+                '}' + "\nMemory Address = " + hashCode();
+    }
 }
