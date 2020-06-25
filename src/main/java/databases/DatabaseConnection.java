@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseConnection {
 
@@ -15,6 +17,7 @@ public class DatabaseConnection {
 
     final String DATABASE_NAME = "foods";
     final String TABLE_NAME = "favorite_foods";
+    final String COLUMN_ID = "id";
     final String COLUMN_NAME = "name";
     final String COLUMN_PRICE = "price";
     final String USERNAME = "erikrios";
@@ -31,6 +34,7 @@ public class DatabaseConnection {
         try {
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+            statement = connection.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -38,8 +42,6 @@ public class DatabaseConnection {
 
     public void add(FavoriteFood favoriteFood) {
         try {
-            statement = connection.createStatement();
-
             String foodName = favoriteFood.getName();
             int foodPrice = favoriteFood.getPrice();
 
@@ -50,5 +52,30 @@ public class DatabaseConnection {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<FavoriteFood> show() {
+        List<FavoriteFood> favoriteFoods = new ArrayList<FavoriteFood>();
+
+        try {
+            String format = "SELECT * FROM %s";
+            String sql = String.format(format, TABLE_NAME);
+
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt(COLUMN_ID);
+                String name = resultSet.getString(COLUMN_NAME);
+                int price = resultSet.getInt(COLUMN_PRICE);
+
+                FavoriteFood favoriteFood = new FavoriteFood(id, name, price);
+
+                favoriteFoods.add(favoriteFood);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return favoriteFoods;
     }
 }
