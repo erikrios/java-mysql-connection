@@ -100,4 +100,19 @@ public class DatabaseConnection {
 
         return result;
     }
+
+    public boolean delete(int id) {
+        boolean result = false;
+
+        try {
+            String format = "DELETE FROM %s WHERE %s = %d";
+            String sql = String.format(format, TABLE_NAME, COLUMN_ID, id);
+
+            result = statement.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }
