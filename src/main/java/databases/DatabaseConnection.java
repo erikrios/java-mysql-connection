@@ -11,6 +11,8 @@ import java.util.List;
 
 public class DatabaseConnection {
 
+    private static DatabaseConnection databaseConnection;
+
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
@@ -27,6 +29,13 @@ public class DatabaseConnection {
 
     private DatabaseConnection() {
         createConnection();
+    }
+
+    public static DatabaseConnection getInstance() {
+        if (databaseConnection == null) {
+            databaseConnection = new DatabaseConnection();
+        }
+        return databaseConnection;
     }
 
     private void createConnection() {
