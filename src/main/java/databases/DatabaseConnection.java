@@ -2,10 +2,7 @@ package databases;
 
 import models.FavoriteFood;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class DatabaseConnection {
     final String USERNAME = "erikrios";
     final String PASSWORD = "";
     final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    final String DATABASE_URL = "jdbc:mysql://localhost/" + DATABASE_NAME;
+    final String DATABASE_URL = "jdbc:mysql://localhost/" + DATABASE_NAME + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     private DatabaseConnection() {
         createConnection();
@@ -44,7 +41,9 @@ public class DatabaseConnection {
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
             statement = connection.createStatement();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
