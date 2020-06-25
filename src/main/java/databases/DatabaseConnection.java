@@ -6,4 +6,6 @@ import java.sql.ResultSet;
 import java.sql.DriverManager;
 
 public class DatabaseConnection {
+
+
 }
