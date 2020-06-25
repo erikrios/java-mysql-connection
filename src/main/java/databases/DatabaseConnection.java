@@ -24,7 +24,7 @@ public class DatabaseConnection {
     final String COLUMN_PRICE = "price";
     final String USERNAME = "erikrios";
     final String PASSWORD = "";
-    final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     final String DATABASE_URL = "jdbc:mysql://localhost/" + DATABASE_NAME;
 
     private DatabaseConnection() {
