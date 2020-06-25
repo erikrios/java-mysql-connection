@@ -11,4 +11,16 @@ public class FavoriteFood {
         this.name = name;
         this.price = price;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
 }
